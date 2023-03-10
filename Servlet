@@ -47,3 +47,30 @@ public class HelloServlet extends HttpServlet {
         out.println("</body></html>");
     }
 }
+
+D1Q9.
+JAVA
+@WebServlet("/TimeServlet")
+public class TimeServlet extends HttpServlet {
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Set the content type of the response
+        response.setContentType("text/html");
+        
+        // Get the PrintWriter object from the response
+        PrintWriter out = response.getWriter();
+        
+        // Get the current time
+        Date currentTime = new Date();
+        
+        // Write the time to the response
+        out.println("<html>");
+        out.println("<head><title>TimeServlet</title></head>");
+        out.println("<body>");
+        out.println("<h1>Current Time: " + currentTime + "</h1>");
+        out.println("</body></html>");
+        
+        // Set the refresh header to refresh the page every 5 seconds
+        response.setHeader("Refresh", "5");
+    }
+}
