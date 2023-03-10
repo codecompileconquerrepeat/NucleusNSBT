@@ -1,0 +1,49 @@
+D1Q8.
+JAVA
+@WebServlet("/HelloServlet")
+public class HelloServlet extends HttpServlet {
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Get the user agent header from the request
+        String userAgent = request.getHeader("User-Agent");
+        
+        // Identify the browser being used
+        String browser = "Unknown";
+        if (userAgent.contains("MSIE")) {
+            browser = "Internet Explorer";
+        } else if (userAgent.contains("Firefox")) {
+            browser = "Mozilla Firefox";
+        } else if (userAgent.contains("Chrome")) {
+            browser = "Google Chrome";
+        } else if (userAgent.contains("Safari")) {
+            browser = "Apple Safari";
+        }
+        
+        // Get all the request headers
+        Enumeration<String> headerNames = request.getHeaderNames();
+        
+        // Set the content type of the response
+        response.setContentType("text/html");
+        
+        // Get the PrintWriter object from the response
+        PrintWriter out = response.getWriter();
+        
+        // Write the response to the client
+        out.println("<html>");
+        out.println("<head><title>HelloServlet</title></head>");
+        out.println("<body>");
+        out.println("<h1>User Agent:</h1>");
+        out.println("<p>" + userAgent + "</p>");
+        out.println("<h1>Browser:</h1>");
+        out.println("<p>" + browser + "</p>");
+        out.println("<h1>Request Headers:</h1>");
+        out.println("<ul>");
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            String headerValue = request.getHeader(headerName);
+            out.println("<li>" + headerName + " : " + headerValue + "</li>");
+        }
+        out.println("</ul>");
+        out.println("</body></html>");
+    }
+}
