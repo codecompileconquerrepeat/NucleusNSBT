@@ -74,3 +74,33 @@ public class TimeServlet extends HttpServlet {
         response.setHeader("Refresh", "5");
     }
 }
+
+D2Q4.
+JAVA
+@WebServlet("/redirect")
+public class RedirectServlet extends HttpServlet {
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Get the URL to redirect to from the request parameter
+        String redirectUrl = request.getParameter("url");
+        
+        // Set the HTTP response status code and message for redirection
+        response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+        response.setHeader("Location", redirectUrl);
+        response.setHeader("Refresh", "5; URL=" + redirectUrl); // refresh every 5 seconds
+        
+        // Set the content type of the response
+        response.setContentType("text/html");
+        
+        // Get the PrintWriter object from the response
+        PrintWriter out = response.getWriter();
+        
+        // Write the redirection explanation message to the response
+        out.println("<html>");
+        out.println("<head><title>RedirectServlet</title></head>");
+        out.println("<body>");
+        out.println("<h1>Redirecting to " + redirectUrl + " in 5 seconds...</h1>");
+        out.println("</body></html>");
+    }
+}
