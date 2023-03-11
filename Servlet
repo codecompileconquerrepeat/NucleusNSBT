@@ -147,3 +147,27 @@ public class ServletConfigContextExample extends HttpServlet {
         out.println("</body></html>");
     }
 }
+
+D2Q7.
+JAVA
+@WebServlet("/error")
+public class ErrorServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Get the exception object from the request attribute
+        Throwable throwable = (Throwable) request.getAttribute("javax.servlet.error.exception");
+
+        // Set the response content type
+        response.setContentType("text/html");
+
+        // Create the error message
+        PrintWriter out = response.getWriter();
+        out.println("<html>");
+        out.println("<head><title>Error</title></head>");
+        out.println("<body>");
+        out.println("<h1>Error</h1>");
+        out.println("<p>" + throwable.getMessage() + "</p>");
+        out.println("</body></html>");
+    }
+}
