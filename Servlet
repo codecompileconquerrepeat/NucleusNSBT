@@ -104,3 +104,46 @@ public class RedirectServlet extends HttpServlet {
         out.println("</body></html>");
     }
 }
+
+D2Q5.
+JAVA
+@WebServlet("/ServletConfigContextExample")
+public class ServletConfigContextExample extends HttpServlet {
+    
+    private ServletConfig config;
+    private ServletContext context;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        this.config = config;
+        this.context = config.getServletContext();
+    }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Get the servlet config parameters
+        String servletName = config.getServletName();
+        String servletParam = config.getInitParameter("paramName");
+        
+        // Get the servlet context parameters
+        String appName = context.getServletContextName();
+        String contextParam = context.getInitParameter("contextParamName");
+        
+        // Set the content type of the response
+        response.setContentType("text/html");
+        
+        // Get the PrintWriter object from the response
+        PrintWriter out = response.getWriter();
+        
+        // Write the config and context parameters to the response
+        out.println("<html>");
+        out.println("<head><title>ServletConfigContextExample</title></head>");
+        out.println("<body>");
+        out.println("<h1>Servlet Config Parameters:</h1>");
+        out.println("<p>Servlet Name: " + servletName + "</p>");
+        out.println("<p>Servlet Parameter: " + servletParam + "</p>");
+        out.println("<h1>Servlet Context Parameters:</h1>");
+        out.println("<p>Application Name: " + appName + "</p>");
+        out.println("<p>Context Parameter: " + contextParam + "</p>");
+        out.println("</body></html>");
+    }
+}
