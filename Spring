@@ -1,0 +1,55 @@
+Day03Q3.
+Java : 
+package com.example.demo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
+@SpringBootApplication
+@ComponentScan("com.example")
+public class DemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+	}
+
+	@Service
+	public static class CustomerService {
+		@Autowired
+		private CustomerRepository customerRepository;
+
+		public void saveCustomer(Customer customer) {
+			customerRepository.save(customer);
+		}
+	}
+
+	@Repository
+	public static class CustomerRepository {
+		public void save(Customer customer) {
+			System.out.println("Customer saved: " + customer);
+		}
+	}
+
+	@Component
+	public static class Customer {
+		private String name;
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		@Override
+		public String toString() {
+			return "Customer [name=" + name + "]";
+		}
+	}
+}
